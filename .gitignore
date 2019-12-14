@@ -2,9 +2,9 @@
 /.idea/
 /build/
 /cmake-*/
-./out/bin/*
-./out/lib/*
-./out/include/*
+/out/bin/
+/out/lib/
+/out/include/
 *.o
 *.a
 *.so

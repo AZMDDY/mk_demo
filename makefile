@@ -6,7 +6,7 @@ PROJECT_EXE := EXE
 PROJECT_STATIC_LIB := STATIC_LIB
 PROJECT_SHARED_LIB := SHARED_LIB
 # 默认项目编译成可执行文件
-PROJECT_TYPE := $(PROJECT_SHARED_LIB)
+PROJECT_TYPE := $(PROJECT_EXE)
 
 # 可执行文件/库文件的名称(不带后缀名)
 PROJECT_NAME := mk_demo
@@ -68,12 +68,15 @@ all:$(PROJECT_NAME)
 
 ifeq ($(PROJECT_TYPE), $(PROJECT_SHARED_LIB))
 $(PROJECT_NAME):$(OBJS)
+	$(shell if [ -f $(MK_DEMO_DIR)/out/lib ]; then echo "out folders exist"; else mkdir -p '$(MK_DEMO_DIR)/out/lib'; fi;)
 	$(CXX) -shared -fPIC -o $(PROJECT_NAME) $(OBJS)
 else ifeq ($(PROJECT_TYPE), $(PROJECT_STATIC_LIB))
 $(PROJECT_NAME):$(OBJS)
+	$(shell if [ -f $(MK_DEMO_DIR)/out/lib ]; then echo "out folders exist"; else mkdir -p '$(MK_DEMO_DIR)/out/lib'; fi;)
 	ar cr $@ $^	
 else
 $(PROJECT_NAME):$(OBJS)
+	$(shell if [ -f $(MK_DEMO_DIR)/out/bin ]; then echo "out folders exist"; else mkdir -p '$(MK_DEMO_DIR)/out/bin'; fi;)
 	$(CXX) -o $(PROJECT_NAME) $(OBJS)
 endif
 
