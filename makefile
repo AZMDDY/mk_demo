@@ -69,15 +69,15 @@ all:$(PROJECT_NAME)
 ifeq ($(PROJECT_TYPE), $(PROJECT_SHARED_LIB))
 $(PROJECT_NAME):$(OBJS)
 	$(shell if [ -f $(MK_DEMO_DIR)/out/lib ]; then echo "out folders exist"; else mkdir -p '$(MK_DEMO_DIR)/out/lib'; fi;)
-	$(CXX) -shared -fPIC -o $(PROJECT_NAME) $(OBJS) $(LIBS)
+	$(CXX) -shared -fPIC -o $(PROJECT_NAME) $(OBJS) $(LDFLAGS) $(LIBS)
 else ifeq ($(PROJECT_TYPE), $(PROJECT_STATIC_LIB))
 $(PROJECT_NAME):$(OBJS)
 	$(shell if [ -f $(MK_DEMO_DIR)/out/lib ]; then echo "out folders exist"; else mkdir -p '$(MK_DEMO_DIR)/out/lib'; fi;)
-	ar cr $@ $^	$(LIBS)
+	ar cr $@ $^	$(LDFLAGS) $(LIBS)
 else
 $(PROJECT_NAME):$(OBJS)
 	$(shell if [ -f $(MK_DEMO_DIR)/out/bin ]; then echo "out folders exist"; else mkdir -p '$(MK_DEMO_DIR)/out/bin'; fi;)
-	$(CXX) -o $(PROJECT_NAME) $(OBJS) $(LIBS)
+	$(CXX) -o $(PROJECT_NAME) $(OBJS) $(LDFLAGS) $(LIBS)
 endif
 
 .PHONY : clean
